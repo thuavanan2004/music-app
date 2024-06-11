@@ -1,0 +1,144 @@
+.layout-default {
+  position: relative;
+  width: 100%;
+  min-width: 768px;
+  height: 100%;
+  background-color: #170f23;
+  display: flex;
+}
+
+
+/* Side bar  */
+.section-sidebar {
+  width: 240px;
+  background-color: hsla(0, 0%, 100%, 0.05);
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.section-sidebar .navbar-logo {
+  width: 240px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 25px 0 28px;
+}
+
+.section-sidebar .inner-logo {
+  height: 40px;
+  width: 141px;
+}
+
+.section-sidebar .inner-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar-main li a {
+  display: flex;
+  align-items: center;
+  color: #dadada;
+  padding: 12px 21px;
+  line-height: 20px;
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.navbar-main li a i {
+  margin-right: 10px;
+}
+
+.navbar-main li.active a {
+  background-color: hsla(0, 0%, 100%, 0.1);
+  color: #fff;
+  border-left: #9b4de0 2px solid;
+}
+
+/* End Side bar  */
+/* Header  */
+.section-header {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  width: 100%;
+  left: 240px;
+  top: 0;
+  right: 0;
+  height: 70px;
+  padding: 0 60px;
+  z-index: 100;
+  min-width: 660px;
+  transition: right .4s;
+  background-color: #170f23;
+}
+
+.section-header .button-directional {
+  display: flex;
+  color: #fff;
+  font-size: 18px;
+  margin-right: 25px;
+}
+
+.section-header .button-directional .button-back {
+  margin-right: 20px;
+
+}
+
+.section-header form.search {
+  flex: 1;
+}
+
+.section-header form.search .input-search {
+  display: flex;
+  align-items: center;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-radius: 20px;
+  padding: 0 10px;
+  color: #dadada;
+  max-width: 400px;
+}
+
+.section-header form.search .input-search i {
+  font-size: 20px;
+  color: #dadada;
+}
+
+.section-header form.search .input-search input {
+  background: none;
+  border: hidden;
+  color: #fff;
+}
+
+.section-header .box-user {
+  flex: 1;
+  text-align: right;
+}
+
+.section-header .box-user a {
+  border-radius: 50%;
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+}
+
+.section-header .box-user a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
+
+/* End Header  */
+/* Main  */
+.main {
+  width: calc(100% - 240px);
+  height: calc(100% - 70px);
+  margin-left: auto;
+}
+
+/* End Main  */

@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.button {
+  cursor: pointer;
+}
+
+input:focus {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
