@@ -2,15 +2,18 @@ extends ../../layouts/default
 include ../../mixins/box-head
 
 block main 
-  .container.my-3
-    .row
-      .col-12
-        +box-head(pageTitle)
-
+  .container.my-4
     .row
       .col-lg-4.col-12 
+        .box-topic 
+          .inner-image 
+            img(src=topic.avatar, alt=topic.title)
+          .inner-content 
+            h3.inner-title #{topic.title}
+            .inner-desc #{topic.description}
+
       .col-lg-8.col-12
-        table(class="table")
+        table(class="table table-song")
           thead 
             tr 
               th Bài hát
@@ -26,11 +29,12 @@ block main
                         img(src=song.avatar alt=song.title)
                     div(class="inner-content")
                       div(class="inner-title")
-                        a(href="/songs/detail/:slugSong") #{song.title}
+                        a(href=`/songs/detail/${song.slug}`) #{song.title}
                       div(class="inner-singer") <i class="fa-solid fa-microphone-lines"></i> #{song.singerName}
                 td 
                   div(class="inner-album") Nhạc trẻ
                 td
-                  div(class="inner-like") <i class="fa-solid fa-thumbs-up"></i> #{song.like}
+                  div(class="inner-like") <i class="fa-solid fa-thumbs-up"></i>  #{song.like}
+      
         
         
