@@ -18,3 +18,9 @@ input:focus {
   border: none !important;
   outline: none !important;
 }
+
+.table td {
+  padding: 5px;
+  border-top: hidden;
+  border-bottom: solid 1px hsla(0, 0%, 100%, 0.05);
+}

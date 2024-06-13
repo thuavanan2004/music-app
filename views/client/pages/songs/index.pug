@@ -1,0 +1,36 @@
+extends ../../layouts/default 
+include ../../mixins/box-head
+
+block main 
+  .container.my-3
+    .row
+      .col-12
+        +box-head(pageTitle)
+
+    .row
+      .col-lg-4.col-12 
+      .col-lg-8.col-12
+        table(class="table")
+          thead 
+            tr 
+              th Bài hát
+              th Album
+              th Lượt thích
+          tbody   
+            each song in songs
+              tr 
+                td 
+                  div(class="song-item")
+                    div(class="inner-image")
+                      a(href=`/songs/detail/${song.slug}`)
+                        img(src=song.avatar alt=song.title)
+                    div(class="inner-content")
+                      div(class="inner-title")
+                        a(href="/songs/detail/:slugSong") #{song.title}
+                      div(class="inner-singer") <i class="fa-solid fa-microphone-lines"></i> #{song.singerName}
+                td 
+                  div(class="inner-album") Nhạc trẻ
+                td
+                  div(class="inner-like") <i class="fa-solid fa-thumbs-up"></i> #{song.like}
+        
+        

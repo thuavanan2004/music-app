@@ -1,35 +1,21 @@
 extends ../../layouts/default 
+include ../../mixins/box-head
 block main 
-   .container.my-3
+  .container.my-3
     .row
       .col-12
-
-    .row
-      .col-6.mb-3
-        div(class="card")
-          img(src="https://backend.daca.vn/assets/images/bolero.jpg")
-          div(class="card-body")
-            h5(class="card-title") Bolero
-            p(class="card-text") Tổng hợp nhạc Bolero mới nhất
-            a(href="/songs/:slugTopic" class="btn btn-primary") Xem chi tiết
-      .col-6.mb-3
-        div(class="card")
-          img(src="https://backend.daca.vn/assets/images/remix.jpg")
-          div(class="card-body")
-            h5(class="card-title") Remix
-            p(class="card-text") Tổng hợp nhạc Remix mới nhất
-            a(href="/songs/:slugTopic" class="btn btn-primary") Xem chi tiết
-      .col-6.mb-3
-        div(class="card")
-          img(src="https://backend.daca.vn/assets/images/hip-hop.jpg")
-          div(class="card-body")
-            h5(class="card-title") Hip-Hop
-            p(class="card-text") Tổng hợp nhạc Hip-Hop mới nhất
-            a(href="/songs/:slugTopic" class="btn btn-primary") Xem chi tiết
-      .col-6.mb-3
-        div(class="card")
-          img(src="https://backend.daca.vn/assets/images/latin.jpg")
-          div(class="card-body")
-            h5(class="card-title") Latin
-            p(class="card-text") Tổng hợp nhạc Latin mới nhất
-            a(href="/songs/:slugTopic" class="btn btn-primary") Xem chi tiết
+        +box-head(pageTitle)
+    .list-topic
+      .row
+        each topic in topics
+          .col-lg-3.col-md-6.mb-3
+            div(class="card")
+              a(href=`/songs/${topic.slug}`)
+                img(src=topic.avatar)
+              div(class="card-body")
+                a(href=`/songs/${topic.slug}`)
+                  h5(class="card-title") #{topic.title}
+                p(class="card-text") #{topic.description}
+        
+              
+        
