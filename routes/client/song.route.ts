@@ -7,4 +7,8 @@ router.get("/:slugTopic", controller.index);
 
 router.get("/:detail/:slugSong", controller.detail);
 
+router.patch("/feelings/:status/:idSong", controller.feelings);
+
+router.patch("/favorite/:status/:idSong", controller.favorite);
+
 export const songRoutes: Router = router;
