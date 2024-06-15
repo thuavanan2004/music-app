@@ -1,0 +1,17 @@
+extends ../../layouts/default 
+include ../../mixins/box-head
+block main
+  .container 
+    +box-head(pageTitle)
+  .container.my-4
+    .row 
+      each song in songs
+        .col-lg-4.col-6 
+          .box-item 
+            .inner-img 
+              img(src=song.avatar, alt=song.title)
+            .inner-right 
+              .inner-title Bài hát 
+              h4.inner-song #{song.title}
+              .inner-singer #{song.singer.fullName}
+      

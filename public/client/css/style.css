@@ -465,3 +465,50 @@
 }
 
 /* End singer-detail */
+/* Box Item  */
+.box-item {
+  display: flex;
+  align-items: center;
+  background-color: rgba(254, 255, 255, 0.05);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.box-item .inner-img {
+  flex-shrink: 0;
+  width: 30%;
+  aspect-ratio: 1/1;
+}
+
+.box-item .inner-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.box-item .inner-right {
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.box-item .inner-right .inner-title {
+  color: #ffffff80;
+  font-size: 12px;
+  margin-bottom: 6px;
+
+}
+
+.box-item .inner-right .inner-song {
+  color: #ffff;
+  font-size: 14px;
+
+}
+
+.box-item .inner-right .inner-singer {
+  color: #ffffff80;
+  font-size: 12px;
+
+}
+
+/* End Box Item  */

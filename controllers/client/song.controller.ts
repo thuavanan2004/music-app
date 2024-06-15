@@ -68,48 +68,87 @@ export const detail = async (req: Request, res: Response) => {
 
 // [PATCH] /songs/feelings/:status/:idSong
 export const feelings = async (req: Request, res: Response) => {
-  const { status, idSong } = req.params;
-  const song = await Song.findOne({
-    _id: idSong,
-    deleted: false,
-    status: "active",
-  });
-  const updateLike = status == "like" ? song.like + 1 : song.like - 1;
-
-  await Song.updateOne(
-    {
+  try {
+    const { status, idSong } = req.params;
+    const song = await Song.findOne({
       _id: idSong,
       deleted: false,
       status: "active",
-    },
-    {
+    });
+    const updateLike = status == "like" ? song.like + 1 : song.like - 1;
+
+    await Song.updateOne(
+      {
+        _id: idSong,
+        deleted: false,
+        status: "active",
+      },
+      {
+        like: updateLike,
+      }
+    );
+    res.json({
+      code: 200,
       like: updateLike,
-    }
-  );
-  res.json({
-    code: 200,
-    like: updateLike,
+    });
+  } catch (error) {
+    res.json({
+      code: 400,
+      error: error,
+    });
+  }
+};
+
+// [GET] /songs/favorite
+export const favorite = async (req: Request, res: Response) => {
+  const favoriteSongs = await FavoriteSong.find({
+    deleted: false,
+  });
+  for (const item of favoriteSongs) {
+    const song = await Song.findOne({
+      _id: item.songId,
+      deleted: false,
+      status: "active",
+    }).select("-lyrics");
+    const singer = await Singer.findOne({
+      _id: song.singerId,
+      deleted: false,
+    }).select("fullName");
+    item["song"] = song;
+    item["singer"] = singer;
+  }
+
+  res.render("./client/pages/songs/favorite", {
+    pageTitle: "Bài hát yêu thích",
+    favoriteSongs: favoriteSongs,
   });
 };
 
 // [PATCH] /songs/favorite/:status/:idSong
-export const favorite = async (req: Request, res: Response) => {
-  const { status, idSong } = req.params;
-  if (status == "favorite") {
-    const favoriteSong = new FavoriteSong({
-      userId: "",
-      songId: idSong,
+export const favoritePatch = async (req: Request, res: Response) => {
+  try {
+    const { status, idSong } = req.params;
+    if (status == "favorite") {
+      const favoriteSong = new FavoriteSong({
+        userId: "",
+        songId: idSong,
+      });
+      await favoriteSong.save();
+    } else {
+      await FavoriteSong.deleteOne({
+        userId: "",
+        songId: idSong,
+      });
+    }
+    res.json({
+      code: 200,
+      message:
+        status == "favorite" ? "Đã thêm vào yêu thích" : "Đã xóa yêu thích",
     });
-    await favoriteSong.save();
-  } else {
-    await FavoriteSong.deleteOne({
-      userId: "",
-      songId: idSong,
+  } catch (error) {
+    res.json({
+      code: 400,
+      error: error,
     });
   }
-  res.json({
-    code: 200,
-    message:
-      status == "favorite" ? "Đã thêm vào yêu thích" : "Đã xóa yêu thích",
-  });
 };

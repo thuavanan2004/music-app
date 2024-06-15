@@ -1,0 +1,28 @@
+extends ../../layouts/default 
+block main 
+  .container.my-3
+
+    .row
+      table(class="table table-song")
+        thead 
+          tr 
+            th Bài hát
+            th Album
+            th Lượt thích
+        tbody   
+          each item in favoriteSongs
+            tr 
+              td 
+                div(class="song-item")
+                  div(class="inner-image")
+                    a(href=`/songs/detail/${item.song.slug}`)
+                      img(src=item.song.avatar alt=item.song.title)
+                  div(class="inner-content")
+                    div(class="inner-title")
+                      a(href=`/songs/detail/${item.song.slug}`) #{item.song.title}
+                    div(class="inner-singer") <i class="fa-solid fa-microphone-lines"></i> #{item.singer.fullName}
+              td 
+                div(class="inner-album") Nhạc trẻ
+              td
+                div(class="inner-like") <i class="fa-solid fa-thumbs-up"></i>  #{item.song.like}
+      

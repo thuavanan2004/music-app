@@ -4,10 +4,10 @@
       i(class="fa-solid fa-arrow-left-long")
     .button.button-forward 
       i(class="fa-solid fa-arrow-right-long")
-  form.search 
+  form(class="search" action="/search/result" method="GET")
     .input-search 
       i(class="fa-solid fa-magnifying-glass")
-      input(type="text" class="form-control" placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát...")
+      input(type="text" class="form-control" placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..." name="keyword")
   .box-user 
     a(href="#")
       img(src="/client/images/user-default.png" alt="user-default")
