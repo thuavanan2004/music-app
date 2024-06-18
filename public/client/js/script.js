@@ -99,6 +99,12 @@ if (boxSearch) {
             `);
             innerList.innerHTML = htmlsArray.join("");
             innerSuggest.classList.add("show");
+
+            innerList.querySelectorAll('.inner-item').forEach(item => {
+              item.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+              });
+            });
           } else {
             innerList.innerHTML = "";
             innerSuggest.classList.remove("show");
