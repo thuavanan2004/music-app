@@ -5,9 +5,26 @@
     .button.button-forward 
       i(class="fa-solid fa-arrow-right-long")
   form(class="search" action="/search/result" method="GET")
-    .input-search 
-      i(class="fa-solid fa-magnifying-glass")
-      input(type="text" class="form-control" placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..." name="keyword")
+    .box-search
+      .input-search 
+        i(class="fa-solid fa-magnifying-glass")
+        input(type="text" class="form-control" placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..." name="keyword" autocomplete="off")
+      .inner-suggest
+        .inner-list
+      //-     a(href=`/songs/detail/:slugSong` class="inner-item")
+      //-       .inner-image
+      //-         img(src="https://backend.daca.vn/assets/images/cat-doi-noi-sau.jpg")
+      //-       .inner-info
+      //-         .inner-title Cắt đôi nỗi sầu
+      //-         .inner-singer
+      //-           <i class="fa-solid fa-microphone-lines"></i> Tăng Duy Tân
+      //-     a(href=`/songs/detail/:slugSong` class="inner-item")
+      //-       .inner-image
+      //-         img(src="https://backend.daca.vn/assets/images/ngay-mai-nguoi-ta-lay-chong.jpg")
+      //-       .inner-info
+      //-         .inner-title Ngày Mai Người Ta Lấy Chồng
+      //-         .inner-singer
+      //-           <i class="fa-solid fa-microphone-lines"></i> Thành Đạt
   .box-user 
     a(href="#")
       img(src="/client/images/user-default.png" alt="user-default")
