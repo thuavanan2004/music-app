@@ -41,3 +41,30 @@ if (activeSider) {
 
 }
 // End Sider 
+// Button filter status 
+const listButtonFilter = document.querySelectorAll("[button-status]");
+if (listButtonFilter.length > 0) {
+  const url = new URL(window.location.href);
+  listButtonFilter.forEach((button) => {
+    button.addEventListener("click", () => {
+      const dataStatus = button.getAttribute("button-status");
+      if (dataStatus) {
+        url.searchParams.set("status", dataStatus)
+      } else {
+        url.searchParams.delete("status");
+      }
+      window.location.href = url.href;
+    })
+  })
+}
+// End Button filter status 
+//Search
+const search = document.querySelector("input[name='keyword']");
+if (search) {
+  const url = new URL(window.location.href);
+  if (url.searchParams.get("keyword") == "") {
+    url.searchParams.delete("keyword");
+    window.location.href = url.href;
+  }
+}
+//End Search

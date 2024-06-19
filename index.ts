@@ -30,5 +30,5 @@ clientRoutes(app);
 adminRoutes(app);
 
 app.listen(port, () => {
-  console.log(`Sever is listening port ${port} `);
+  console.log(`Sever is listening on port ${port}`);
 });
