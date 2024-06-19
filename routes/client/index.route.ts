@@ -4,7 +4,7 @@ import { homeRoutes } from "./home.route";
 import { songRoutes } from "./song.route";
 import { searchRoutes } from "./search.route";
 
-const routeClient = (app: Express) => {
+const clientRoutes = (app: Express) => {
   app.use("/", homeRoutes);
 
   app.use("/topics", topicRoutes);
@@ -14,4 +14,4 @@ const routeClient = (app: Express) => {
   app.use("/search", searchRoutes);
 };
 
-export default routeClient;
+export default clientRoutes;
