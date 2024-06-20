@@ -1,15 +1,13 @@
 extends ../../layouts/default.pug 
 include ../../mixins/filter.pug
 include ../../mixins/search.pug
-//- include ../../mixins/pagination.pug
-//- include ../../mixins/alert.pug
+include ../../mixins/pagination.pug
+include ../../mixins/alert.pug
 
 block main
 
-  //- +alert-success()
-  //- - if (messages.success)
-  //-     div(class="alert alert-success")
-  //-       | #{messages.success}
+  +alert-success()
+  +alert-error()
 
   .row
     .col-12
@@ -28,7 +26,7 @@ block main
       .row 
         .col-6
           form(
-            action=`${prefixAdmin}/products/change-multi?_method=PATCH`
+            action=`/${prefixAdmin}/topics/change-multi?_method=PATCH`
             method="POST"
             form-change-multi
           ) 
@@ -37,7 +35,6 @@ block main
                 select(name="type" class="form-control")
                   option(value="active") Hoạt động
                   option(value="inactive") Dừng hoạt động
-                  option(value="change-position") Thay đổi vị trí
                   option(value="delete-all") Xóa tất cả
               .form-group.d-none
                 input(
@@ -49,7 +46,7 @@ block main
               button(type="submit" class="btn btn-apply") Áp dụng
         .col-3
           a(
-            href=`${prefixAdmin}/products/trash`
+            href=`/${prefixAdmin}/topics/trash`
             class="btn btn-trash"
             buttonTrash
           ) 
@@ -58,7 +55,7 @@ block main
 
         .col-3.text-end
           a(
-            href=`${prefixAdmin}/products/create`
+            href=`/${prefixAdmin}/topics/create`
             class="btn btn-create"
             name="buttonCreate"
           ) + Thêm mới
@@ -86,7 +83,7 @@ block main
             //- td #{objectPagination.limitPage * (objectPagination.currentPage - 1) + index + 1}  
             td.image 
               a(
-                href=`${prefixAdmin}/topics/detail/${item.id}`
+                href=`/${prefixAdmin}/topics/detail/${item.id}`
               )
                 img(src=`${item.avatar}` alt=`${item.title}` )     
             td 
@@ -100,7 +97,6 @@ block main
               //- div #{item.updatedBy}
               //- div #{moment(item.updatedAt).format("DD/MM/YY HH:mm")}
             td
-
               if(item.status == "active")
                 a(
                   href="javascript:;"
@@ -119,12 +115,12 @@ block main
                 ) Dừng hoạt động
             td
               a(
-                href=`${prefixAdmin}/products/detail/${item.id}`
+                href=`/${prefixAdmin}/topics/detail/${item.id}`
                 class="btn btn-detail"
               )   
                 i.fa-solid.fa-eye
               a(
-                href=`${prefixAdmin}/products/edit/${item.id}`
+                href=`/${prefixAdmin}/topics/edit/${item.id}`
                 class="btn btn-edit"
               ) 
                 i.fa-regular.fa-pen-to-square
@@ -137,16 +133,16 @@ block main
 
 
 
-  //- +pagination(objectPagination)
+  +pagination(objectPagination)
   form(
     form-change-status 
     method="POST"
     action=""
-    data-path="/admin/products/change-status"
+    data-path=`/${prefixAdmin}/topics/change-status`
   )  
   form(
     form-delete 
     method="POST"
     action=""
-    data-path="/admin/products/delete"
+    data-path=`/${prefixAdmin}/topics/delete`
   )

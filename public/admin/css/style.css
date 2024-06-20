@@ -563,23 +563,3 @@ body .main {
 .setting-general label[for='logo'] i {
     font-size: 12px;
 }
-
-/* Image Upload Create  */
-label[for='thumbnail'] {
-    width: 150px;
-    min-height: 100px;
-    background: #ddd;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    z-index: 9;
-}
-
-label[for='thumbnail'] i {
-    font-size: 30px;
-}
-
-/* Image Upload Create  */

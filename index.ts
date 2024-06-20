@@ -1,5 +1,9 @@
 import express, { Express } from "express";
 import bodyParser from "body-parser";
+import methodOverride from "method-override";
+import flash from "express-flash";
+import session from "express-session";
+import cookieParser from "cookie-parser";
 import connect from "./config/database";
 import env from "dotenv";
 env.config();
@@ -18,6 +22,19 @@ app.set("view engine", "pug");
 app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(methodOverride("_method"));
+
+app.use(cookieParser("453"));
+app.use(
+  session({
+    secret: "secret_key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // Đặt thành true nếu bạn sử dụng HTTPS
+  })
+);
+app.use(flash());
 
 app.use(
   "/tinymce",

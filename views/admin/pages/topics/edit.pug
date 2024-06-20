@@ -1,0 +1,72 @@
+extends ../../layouts/default 
+include ../../mixins/alert
+block main 
+  +alert-error()
+  form(
+    action=`/${prefixAdmin}/topics/edit/${topic.id}?_method=PATCH`
+    method="POST"
+    enctype="multipart/form-data"
+  ) 
+    div(class="form-group")
+      label(
+        for="title"
+      ) Tiêu đề
+      input(
+        type="text" 
+        name="title"
+        id="title"
+        class="form-control"
+        value=topic.title
+      )
+    div(
+      class="form-group my-3"
+      upload-image
+    )
+      label(for="avatar") Ảnh
+      input(
+        type="file"
+        id="avatar"
+        name="avatar"
+        class="form-control-file"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=topic.avatar
+        class="image-preview"
+        upload-image-preview
+      )
+    div(class="form-group") 
+      label(for="desc") Mô tả
+      textarea(
+        name="description"
+        id="desc"
+        class="form-control"
+        rows="5"
+        textarea-mce
+      ) !{topic.description}
+    div(class="form-group form-check form-check-inline my-2")
+      input(
+        type="radio"
+        class="form-check-input"
+        name="status"
+        id="statusActive"
+        value="active"
+        checked=(topic.status == "active" ? true : false)
+      )
+      label(for="statusActive" class="form-check-label") Hoạt động
+    div(class="form-group form-check form-check-inline")
+      input(
+        type="radio"
+        class="form-check-input"
+        name="status"
+        value="inactive"
+        id="statusInActive"
+        checked=(topic.status == "inactive" ? true : false)
+      )
+      label(for="statusInActive" class="form-check-label") Ngừng hoạt động
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-create"
+      ) Cập nhật
