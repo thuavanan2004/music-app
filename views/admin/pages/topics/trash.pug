@@ -1,0 +1,107 @@
+extends ../../layouts/default.pug 
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/alert.pug
+
+block main
+
+  +alert-success()
+  +alert-error()
+
+  .row
+    .col-12
+      .card.mb-3.box-item
+        .card-header Bộ lọc và Tìm kiếm
+        .card-body
+          .row 
+            .col-7
+
+            .col-5 
+              +search(keyword)
+
+  .card.mb-3.box-item.box-list
+    .card-header Danh sách
+    .card-body
+      .row 
+        .col-6
+          form(
+            action=`/${prefixAdmin}/topics/change-multi?_method=PATCH`
+            method="POST"
+            form-change-multi
+          ) 
+            .d-flex.align-items-start
+              .form-group
+                select(name="type" class="form-control")
+                  option(value="remove-all") Xóa tất cả
+                  option(value="recall-all") Thu hồi
+              .form-group.d-none
+                input(
+                  type="text"
+                  name="ids"
+                  value=""
+                  class="form-control"
+                )
+              button(type="submit" class="btn btn-apply") Áp dụng
+    table(
+      class="table table-hover table-sm"
+      checkbox-multi  
+    )
+      thead 
+        tr
+          td 
+            input(type="checkbox" name="checkall")
+          th STT 
+          th Hình ảnh
+          th Tiêu đề
+          th Người xóa
+          th Hành động    
+      tbody 
+        each item, index in topics
+          tr 
+            td 
+              input(type="checkbox" name="id" value=item.id)
+            td #{objectPagination.limitPage * (objectPagination.currentPage - 1) + index + 1}  
+            td.image 
+              a(
+                href=`/${prefixAdmin}/topics/detail/${item.id}`
+              )
+                img(src=`${item.avatar}` alt=`${item.title}` )     
+            td 
+              a(
+                href=`${prefixAdmin}/topics/detail/${item.id}`
+              ) #{item.title} 
+            td 
+
+            td
+              button(
+                class="btn btn-warning btn-sm"
+                button-recall
+                data-id = item.id
+                ) Thu hồi 
+              button(
+                class="btn btn-danger btn-sm ml-1"
+                button-remove 
+                data-id = item.id
+              ) Xóa vĩnh viễn
+
+
+
+  +pagination(objectPagination)
+  form(
+    form-change-status 
+    method="POST"
+    action=""
+    data-path=`/${prefixAdmin}/topics/change-status`
+  )  
+  form(
+    form-remove 
+    method="POST"
+    action=""
+    data-path=`/${prefixAdmin}/topics/remove`
+  )
+  form(
+    form-recall 
+    method="POST"
+    action=""
+    data-path=`/${prefixAdmin}/topics/recall`
+  )

@@ -79,8 +79,7 @@ block main
           tr 
             td 
               input(type="checkbox" name="id" value=item.id)
-            td
-            //- td #{objectPagination.limitPage * (objectPagination.currentPage - 1) + index + 1}  
+            td #{objectPagination.limitPage * (objectPagination.currentPage - 1) + index + 1}  
             td.image 
               a(
                 href=`/${prefixAdmin}/topics/detail/${item.id}`

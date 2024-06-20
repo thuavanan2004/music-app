@@ -34,4 +34,10 @@ router.get("/detail/:id", controller.detail);
 
 router.patch("/delete/:id", controller.deletePatch);
 
+router.get("/trash", controller.trash);
+
+router.delete("/remove/:id", controller.remove);
+
+router.patch("/recall/:id", controller.recall);
+
 export const topicRoutes: Router = router;

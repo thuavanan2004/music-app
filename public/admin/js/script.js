@@ -170,18 +170,21 @@ if (uploadImage) {
 // Form Delete 
 const formDelete = document.querySelector("[form-delete]");
 if (formDelete) {
-  const buttonDelete = document.querySelector("[button-delete]");
+  const listButtonDelete = document.querySelectorAll("[button-delete]");
   const dataPath = formDelete.getAttribute("data-path");
-  const id = buttonDelete.getAttribute("data-id");
-  buttonDelete.addEventListener("click", () => {
-    const isConfirm = confirm("Bạn có chắc chắn xóa chủ đề chứ ?");
-    if (!isConfirm) {
-      return;
-    }
-    const action = `${dataPath}/${id}?_method=PATCH`;
-    formDelete.action = action;
-    formDelete.submit();
+  listButtonDelete.forEach(button => {
+    const id = button.getAttribute("data-id");
+    button.addEventListener("click", () => {
+      const isConfirm = confirm("Bạn có chắc chắn xóa chủ đề chứ ?");
+      if (!isConfirm) {
+        return;
+      }
+      const action = `${dataPath}/${id}?_method=PATCH`;
+      formDelete.action = action;
+      formDelete.submit();
+    })
   })
+
 }
 // End Form Delete 
 // Pagination 
@@ -198,3 +201,39 @@ if (paginaiton) {
   })
 }
 // End Pagination 
+// Form Remove  
+const formRemove = document.querySelector("[form-remove]");
+if (formRemove) {
+  const listButtonDelete = document.querySelectorAll("[button-remove]");
+  const dataPath = formRemove.getAttribute("data-path");
+  listButtonDelete.forEach(button => {
+    const id = button.getAttribute("data-id");
+    button.addEventListener("click", () => {
+      const isConfirm = confirm("Chủ đề này sẽ được xóa vĩnh viễn ?");
+      if (!isConfirm) {
+        return;
+      }
+      const action = `${dataPath}/${id}?_method=DELETE`;
+      formRemove.action = action;
+      formRemove.submit();
+    })
+  })
+
+}
+// End Form Remove  
+// Form Recall
+const formRecall = document.querySelector("[form-recall]");
+if (formRecall) {
+  const listButtonRecall = document.querySelectorAll("[button-recall]");
+  const dataPath = formRecall.getAttribute("data-path");
+  listButtonRecall.forEach(button => {
+    const id = button.getAttribute("data-id");
+    button.addEventListener("click", () => {
+      const action = `${dataPath}/${id}?_method=PATCH`;
+      formRemove.action = action;
+      formRemove.submit();
+    })
+  })
+
+}
+// End Form Remove  

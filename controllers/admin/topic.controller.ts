@@ -81,6 +81,21 @@ export const changeMulti = async (req: Request, res: Response) => {
           }
         );
         break;
+      case "remove-all":
+        await Topic.deleteMany({
+          _id: { $in: ids },
+        });
+        break;
+      case "recall-all":
+        await Topic.updateMany(
+          {
+            _id: { $in: ids },
+          },
+          {
+            deleted: false,
+          }
+        );
+        break;
       default:
         break;
     }
@@ -137,7 +152,6 @@ export const edit = async (req: Request, res: Response) => {
     const topic = await Topic.findOne({
       _id: id,
       deleted: false,
-      status: "active",
     });
 
     res.render("admin/pages/topics/edit", {
@@ -172,7 +186,6 @@ export const detail = async (req: Request, res: Response) => {
     const topic = await Topic.findOne({
       _id: id,
       deleted: false,
-      status: "active",
     });
 
     res.render("admin/pages/topics/detail", {
@@ -205,4 +218,68 @@ export const deletePatch = async (req: Request, res: Response) => {
 };
 
 // [GET] /topics/trash
-export const trash = async (req: Request, res: Response) => {};
+export const trash = async (req: Request, res: Response) => {
+  try {
+    const find = {
+      deleted: true,
+    };
+    if (req.query.keyword) {
+      const keyword = `${req.query.keyword}`.trim();
+      const keywordRegex = new RegExp(keyword, "i");
+
+      const unidecodeKeyword = unidecode(keyword);
+      const keywordSlug = unidecodeKeyword.replace(/\s+/g, "-");
+      const keywordSlugRegex = new RegExp(keywordSlug, "i");
+
+      find["$or"] = [{ title: keywordRegex }, { slug: keywordSlugRegex }];
+    }
+    const countRecord = await Topic.countDocuments(find);
+    const objectPagination = paginationHelper(req, countRecord);
+
+    const topics = await Topic.find(find)
+      .skip(objectPagination.skipPage)
+      .limit(objectPagination.limitPage);
+
+    res.render("admin/pages/topics/trash", {
+      pageTitle: "Chủ đề đã xóa",
+      topics: topics,
+      objectPagination: objectPagination,
+      keyword: req.query.keyword,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+// [DELETE] /topics/remove/:id
+export const remove = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    await Topic.deleteOne({
+      _id: id,
+    });
+    req.flash("success", "Chủ đề đã được xóa vĩnh viễn!");
+    res.redirect("back");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+// [PATCH] /topics/remove/:id
+export const recall = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    await Topic.updateOne(
+      {
+        _id: id,
+      },
+      {
+        deleted: false,
+      }
+    );
+    req.flash("success", "Thu hồi sản phẩm thành công!");
+    res.redirect(`/${systemConfig.prefixAdmin}/topics`);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
